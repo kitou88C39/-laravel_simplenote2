@@ -14,7 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tags', function (Blueprint $table) {
-            $table->bigInteger('tag_id')->nullable()->after('user_id');
+            $table->bigIncrements('id');
+            $table->string('name', 100);
+            $table->integer('user_id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('memos', function (Blueprint $table) {
-            $table->dropColumn('tag_id');
-        });
+        Schema::dropIfExists('tags');
     }
 };
